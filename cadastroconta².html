@@ -46,6 +46,12 @@ h3 {
     text-align: center;
 }
 
+h4{
+    text-align: left;
+
+    
+}
+
 
 label {
     display: block;
@@ -89,8 +95,7 @@ button:hover {
   100% {
     opacity: 1;
   }
-} 
-
+}
 
    </style> 
     
@@ -118,8 +123,36 @@ function formatarovalor(input) {
     value = (value / 100).toFixed(2) + '';
     value = value.replace(".", ",");
     value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-    input.value = 'R$ ' + value;
+    input.value = value;
 }
+
+function saveToFile(){
+    const nomes = document.getElementById("name").value;
+    const teli = document.getElementById("tele").value; 
+    const saldo = document.getElementById("deposito").value;
+    
+    if (saldo==null||saldo.isEmpty()||saldo.equals(0)){
+        saldo="0";
+    }
+    const cont = `Nome: ${nomes}\ntelefone: ${teli}\nvalor depositado: ${saldo}`
+      // Criar um blob com o conteúdo
+    const blob = new Blob([content], { type: "text/plain" });
+    // Criar uma URL para o blob
+    const url = URL.createObjectURL(blob);
+
+// Criar um elemento <a> para o download
+const a = document.createElement("a");
+a.href = url;
+a.download = "dados.txt"; // Nome do arquivo gerado
+
+// Acionar o clique no elemento <a>
+a.click();
+ // Liberar a URL após o download
+ URL.revokeObjectURL(url);
+
+
+}
+
     
 </script>
 
@@ -127,28 +160,31 @@ function formatarovalor(input) {
     
 
     <div class="container">
-        <h2>Cadastro de Conta</h2>
+        <h2><b>Cadastro de Conta</b></h2>
         <form action="submit_form.php" method="post">
-            <label for="name">Nome Completo:</label>
+            <label for="name">Nome Completo:<b>*</b></label>
             <input type="text" id="name" name="name" required placeholder="nome completo"><br>
 
-            <label for="tele">Número de Telefone:</label>
+            <label for="tele">Número de Telefone:<b>*</b></label>
             <input type="tel" oninput="formatarnimero(this)" 
             min="0" id="tele" name="tele" required placeholder="(xx) xxxxx-xxxx"><br>
 
             <label for="deposito">Valor inicial de deposito:</label>
-            <input type="text" oninput="formatarovalor(this)" 
+            <input type="text" oninput="formatarovalor(this)" placeholder="digite o valor do deposito" 
             id="deposito" name="deposito" step="0.01" min="0.0"  ><br>
+        
+            <h4>
+                <label>Qual tipo de conta:</label>
+                <label class="alin" >conta corrente</label>
+                <input type="checkbox" id="tipo1" name="contaT" value="corrente">
+                <label class="alin" >conta poupança</label>
+                <input type="checkbox" id="tipo2" name="contaT" value="poupança">
+                <label class="alin" >conta salário</label>
+                <input type="checkbox" id="tipo3" name="contaT" value="salário">
+            </h4>
 
-            <label>Qual tipo de conta:</label>
-            <label for="tipo1" class="alinhamento">Conta Corrente</label>
-            <input type="checkbox" id="tipo1" name="contaT" value="corrente">
-            <label for="tipo2" class="alinhamento">Conta Poupança</label>
-            <input type="checkbox" id="tipo2" name="contaT" value="poupança">
-            <label for="tipo3" class="alinhamento">Conta Salário</label>
-            <input type="checkbox" id="tipo3" name="contaT" value="salário">
 
-            <button type="submit">Cadastrar</button>
+            <button type="submit" onclick="saveToFile()">Cadastrar</button>
         </form>
     </div>
     <h3>
