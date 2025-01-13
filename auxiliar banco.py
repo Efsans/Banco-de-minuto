@@ -1,17 +1,25 @@
 import os
+while True:
+  chack=(input("escreva um numero de codigo:  "))
+  if chack.isdigit() and len(chack) == 6:
+    break
+  else:
+    print ("digite até seis caracteries")
 
-chack=(input("escreva um numero de codigo:  "))
 
-def comparar(chack, arquivo="sequencia.txt"):
-  if os.path.exists(arquivo):
-    with open(arquivo, "r") as ler:
-      for lido in ler:
-        lido_final = lido.strip()
-        if lido_final == chack:
-          print(f"aqui o valor: {chack}")
-          return
-      print("valor invalido")
-  else :
-   print (f"o {arquivo} nao existe")
+def comparar(chack, arquivo="contas"):
+      if os.path.exists(arquivo):
+        with open(arquivo, "r") as l:
+          for lido in l:
+            codigo = lido[:6]
+            #lido_final = lido.strip()
+            if codigo == chack:
+              #print(f"valor {chack} existente")
+              return
+            else :
+              print (f"o valo {chack} nao existe")
 
-comparar(chack)
+      else:
+        print("arquivo não existe")
+
+comparar(chack, arquivo="contas")

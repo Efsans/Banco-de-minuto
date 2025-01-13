@@ -1,5 +1,11 @@
 import os
 
+nome = input("nome: ")
+
+tele= input ("telefone: ")
+
+saldo=input ("deposito inicial: ")
+
 def gerar_numero_sequencial(arquivo="sequencia.txt"):
     if not os.path.exists(arquivo):
         with open(arquivo, "w") as f:
@@ -16,11 +22,20 @@ def gerar_numero_sequencial(arquivo="sequencia.txt"):
         f.write(f"{proximo_numero_formatado}\n")
 
 
-        return proximo_numero_formatado
+    return proximo_numero_formatado
 
 
 numero_gerado = gerar_numero_sequencial()
-print(f"Número gerado: {numero_gerado}")
+#print(f"Número gerado: {numero_gerado}")
+def tabelinha():
+    print("cadastro feito")
+    print("%s\t%s\t\t%s\t\t%s" % (numero_gerado, nome, tele, saldo))
+    with open("contas", "a") as arquiv:
+        line = "%s\t%s\t\t%s\t\t%s" % (numero_gerado, nome, tele, saldo)
+        arquiv.write(f"{line}\n")
+
+tabelinha()
+
 
 
   

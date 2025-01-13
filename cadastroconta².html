@@ -136,7 +136,7 @@ function saveToFile(){
     }
     const cont = `Nome: ${nomes}\ntelefone: ${teli}\nvalor depositado: ${saldo}`
       // Criar um blob com o conteúdo
-    const blob = new Blob([content], { type: "text/plain" });
+    const blob = new Blob([cont], { type: "text/plain" });
     // Criar uma URL para o blob
     const url = URL.createObjectURL(blob);
 
@@ -149,7 +149,6 @@ a.download = "dados.txt"; // Nome do arquivo gerado
 a.click();
  // Liberar a URL após o download
  URL.revokeObjectURL(url);
-
 
 }
 

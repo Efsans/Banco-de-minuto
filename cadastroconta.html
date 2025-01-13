@@ -3,9 +3,17 @@
     
 <head>
     <title>cadastro</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PyScript!</title>
+    <link 
+    rel="stylesheet"
+    href="https://pyscript.net/snapshots/2024.9.2/core.css"
+    />
+    <script type="module"
+    src="https://pyscript.net/snapshots/2024.9.2/core.js">
+    </script>
    <style>
     * {
     margin: 0;
@@ -90,9 +98,13 @@ button:hover {
             input.setCustomValidity("");
         }
     }
+    
+
 </script>
 
 <body>
+        
+    </script>
     
 
     <div class="container">
@@ -115,13 +127,18 @@ button:hover {
             <label for="tipo3" class="alinhamento">Conta Salário</label>
             <input type="checkbox" id="tipo3" name="contaT" value="salário">
 
-        
-            
-
-            
+            <script type="mpy" terminal>
+                print("Hello, world!")
+            </script>
 
             <button type="submit">Cadastrar</button>
+
+            <py-script> print('Olá, Python!') </py-script>
         </form>
+        <py-script> print('Olá, Python!') </py-script>
     </div>
+    <script type="mpy" terminal>
+        print("Hello, world!")
+    </script>
 </body>
 </html>
