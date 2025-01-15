@@ -7,6 +7,11 @@
   
 </head>
 <style>
+     * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .container {
     width: 300px;
     margin: 50px auto;
@@ -74,10 +79,11 @@ function formatarnimero(input){
 <body>
   <div class="container">
     <h2>pesquisa de conta</h2>
-    <input type="text" id="conta " name="conta" placeholder="codigo da conta" oninput="formatarnimero(this)" maxlength="6" ><br>
+    <form action="/pesquisa" method="post">
+      <input type="text" id="conta " name="conta" placeholder="codigo da conta" oninput="formatarnimero(this)" maxlength="6" ><br>
 
-    <button type="submit">pesquisar</button>
-
+      <button type="submit">pesquisar</button>
+    </form>
   
 
   </div>
