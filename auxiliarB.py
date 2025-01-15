@@ -1,3 +1,8 @@
+from flask import Flask, request, render_template # type: ignore
+import os 
+
+app=Flask(__name__)
+
 import os
 while True:
   chack = input("escreva um numero de codigo:  ")
