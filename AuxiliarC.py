@@ -8,14 +8,14 @@ app=Flask(__name__)
 def pesquisa():
   return render_template('pesquisa.html')
 @app.route('/pesquisa', methods=['post'])
-def pesquisar(chack, arquivo='contas'):
+def pesquisar(arquivo="contas"):
   chack = request.form['conta']
 #def comparar(chack, arquivo="contas"):
   with open(arquivo, "r") as l:
     for lido in l:
       codigo = lido[:6]
       if codigo == chack:
-        linha=pesquisa(chack, arquivo='contas')
+        linha=pesquisa(chack, arquivo="contas")
         return f"{linha}"
       else:
         return f"codigo não encontrado"
