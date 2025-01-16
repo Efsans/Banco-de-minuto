@@ -17,7 +17,7 @@ def comparar(chack, arquivo="contas"):
               #print(f"valor {chack} existente")
               return
             else :
-              print (f"o valo {chack} nao existe")
+              print (f"o valo, {chack} nao existe")
 
       else:
         print("arquivo não existe")

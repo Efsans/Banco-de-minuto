@@ -35,7 +35,7 @@ def cadastrar():
 
     
     with open("contas", "a") as arquiv:
-        line = "%s\t%s\t\t%s\t\t%s" % (numero_gerado, nome, telefone, saldo)
+        line = "%s\t%s\t%s\t%s" % (numero_gerado, nome, telefone, saldo)
         arquiv.write(f"{line}\n")
     
     mensagem = f"Cadastro feito com sucesso! Número da conta: {numero_gerado}.Guarde bem esse número :)"
