@@ -96,6 +96,12 @@ button:hover {
     opacity: 1;
   }
 }
+.mensagem{
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+
+}
 
    </style> 
     
@@ -133,6 +139,13 @@ function formatarovalor(input) {
 
     <div class="container">
         <h2><b>Cadastro de Conta</b></h2>
+        <!--<h4><b>Campos com * são obrigatórios</b></h4>-->
+        {% if mensagem %}
+        <div class="mensagem">
+            <p>{{mensagem}}</p>
+        </div>
+        {% endif %}
+
         <form action="/cadastrar" method="post">
             <label for="name">Nome Completo:<b>*</b></label>
             <input type="text" id="name" name="name" required placeholder="nome completo"><br>

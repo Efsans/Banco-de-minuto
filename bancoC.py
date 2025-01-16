@@ -29,6 +29,8 @@ def cadastrar():
     nome = request.form['name']
     telefone = request.form['tele']
     saldo = request.form['deposito']
+    if not saldo:
+        saldo = '0.00'
     numero_gerado = gerar_numero_sequencial()
 
     
@@ -36,7 +38,8 @@ def cadastrar():
         line = "%s\t%s\t\t%s\t\t%s" % (numero_gerado, nome, telefone, saldo)
         arquiv.write(f"{line}\n")
     
-    return f"Cadastro feito com sucesso! Número da conta: {numero_gerado}"
+    mensagem = f"Cadastro feito com sucesso! Número da conta: {numero_gerado}.Guarde bem esse número :)"
+    return render_template('cadastroconta².html', mensagem=mensagem)
 
 if __name__ == '__main__':
     app.run(debug=True)
