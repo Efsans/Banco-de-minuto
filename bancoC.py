@@ -30,7 +30,7 @@ def cadastrar():
     telefone = request.form['tele']
     saldo = request.form['deposito']
     if not saldo:
-        saldo = '0.00'
+        saldo = '0,00'
     numero_gerado = gerar_numero_sequencial()
 
     

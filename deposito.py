@@ -3,48 +3,68 @@ import os
 
 app=Flask(__name__)
 
-def deposito(arquivo="contas"):
-  codigo1 = "000002"  #input("numero da conta ")
-  codigo2 = "000003" #input("numero da conta dois ")
-  with open(arquivo, "r") as l:
-    for ler in l:
-      conta = ler[:6]
-      if conta == codigo1:
-        titular = ler.strip()
-        valor1 = ler.strip().split('\t')
-        dinheiro =  {
-          'saldo_do_titular' : valor1[3],
-        }
-      
+def deposito():
+    arquivo = "contas"
+    codigo1 = input("Digite o código da sua conta: ")
+    codigo2 = input("Digite o código da conta de destino: ")
 
-        with open(arquivo, "r") as v:
-          for lido in v:
+    if not os.path.exists(arquivo):
+        print("Arquivo de contas não encontrado.")
+        return
+
+    with open(arquivo, "r") as f:
+        contas = f.readlines()
+
+    conta1 = None
+    conta2 = None
+
+    for lido in contas:
+        conta = lido[:6]
+        if conta == codigo1:
+            conta1 = lido.strip().split('\t')
+        elif conta == codigo2:
+            conta2 = lido.strip().split('\t')
+
+    if not conta1:
+        print("Conta de origem não encontrada.")
+        return
+
+    if not conta2:
+        print("Conta de destino não encontrada.")
+        return
+
+    saldo_origem = float(conta1[3].replace(',', '.'))
+    saldo_destino = float(conta2[3].replace(',', '.'))
+
+    print(f"Saldo na conta de origem ({conta1[1]}): {saldo_origem:.2f}")
+    transacao = float(input(f"Valor a ser transferido para {conta2[1]}: ").replace(',', '.'))
+
+    if transacao < 10.00:
+        print("Valor mínimo para transação é 10,00")
+        return
+    elif transacao > saldo_origem:
+        print("Saldo insuficiente")
+        return
+
+    saldo_origem -= transacao
+    saldo_destino += transacao
+
+    conta1[3] = f"{saldo_origem:.2f}".replace('.', ',')
+    conta2[3] = f"{saldo_destino:.2f}".replace('.', ',')
+
+    with open(arquivo, "w") as f:
+        for lido in contas:
             conta = lido[:6]
-            if conta == codigo2:
-              alheio= lido.strip()
-              valor2 = lido.strip().split('\t')
-              money = {
-                'saldo_alheio' : valor2[3],
-                '' : valor2[1]
-  
-              }
-              print(f"valor na conta {valor1[3]}")
-              transação = input(f"valor a ser mandado para {valor2[1]} ")
-              if transação < "10,00":
-                print("valor minimo para trasação 10,00")
-                return
-              elif transação > valor1[3]:
-                print("saldo insufciente")
-                return  
-                
+            if conta == codigo1:
+                f.write('\t'.join(conta1) + '\n')
+            elif conta == codigo2:
+                f.write('\t'.join(conta2) + '\n')
+            else:
+                f.write(lido)
 
-              
-            #else:
-              #print(f"conta não encontrada")  
-      #else:
-        #print(f"conta não encontrada")
+    print(f"Transação de {transacao:.2f} realizada com sucesso!")
+    print(f"Novo saldo na conta de origem ({conta1[1]}): {saldo_origem:.2f}")
+    print(f"Novo saldo na conta de destino ({conta2[1]}): {saldo_destino:.2f}")
 
-deposito()
-
-
-      
+if __name__ == "__main__":
+    deposito()
