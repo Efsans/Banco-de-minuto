@@ -35,16 +35,18 @@ def deposito():
 
     saldo_origem = float(conta1[3].replace(',', '.'))
     saldo_destino = float(conta2[3].replace(',', '.'))
+    while True:
+      print(f"Saldo na conta de origem {conta1[1]}: {saldo_origem:.2f}")
+      transacao = float(input(f"Valor a ser transferido para {conta2[1]}: ").replace(',', '.'))
 
-    print(f"Saldo na conta de origem ({conta1[1]}): {saldo_origem:.2f}")
-    transacao = float(input(f"Valor a ser transferido para {conta2[1]}: ").replace(',', '.'))
-
-    if transacao < 10.00:
-        print("Valor mínimo para transação é 10,00")
-        return
-    elif transacao > saldo_origem:
-        print("Saldo insuficiente")
-        return
+      if transacao < 10.00:
+          print("Valor mínimo para transação é 10,00")
+          continue
+      elif transacao > saldo_origem:
+          print("Saldo insuficiente")
+          continue
+      else:
+        break     
 
     saldo_origem -= transacao
     saldo_destino += transacao

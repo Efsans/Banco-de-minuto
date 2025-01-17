@@ -4,7 +4,8 @@
 <head>
     <title>cadastro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
 
    <style>
     * {
@@ -123,14 +124,33 @@ function formatarnimero(input) {
             }
 
             input.value = value;
-}
-function formatarovalor(input) {
-    let value = input.value.replace(/\D/g, '');
-    value = (value / 100).toFixed(2) + '';
-    value = value.replace(".", ",");
-    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-    input.value = value;
-}
+            }
+/*function formatarovalor() {
+    number.toLocaleString('pt-br', {style: 'decimal', maximumFractionDigits: 2});
+
+}*/
+const inputValor = document.getElementById('deposito');
+ // Adicionando um evento ao campo de entrada
+ inputValor.addEventListener('input', function () {
+            // Pegando o valor digitado
+            let valor = inputValor.value;
+
+            // Removendo tudo que não for número ou ponto/virgula
+            valor = valor.replace(/[^0-9.,]/g, ''); 
+
+            // Convertendo para número flutuante
+            const numero = parseFloat(valor.replace(',', '.')) || 0;
+
+            // Formatando como número padrão brasileiro
+            spanBrasil.textContent = numero.toLocaleString('pt-BR');
+
+            // Formatando como moeda brasileira
+            spanMoeda.textContent = numero.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+        });    
+
 
 </script>
 
@@ -155,8 +175,10 @@ function formatarovalor(input) {
             min="0" id="tele" name="tele" required placeholder="(xx) xxxxx-xxxx"><br>
 
             <label for="deposito">Valor inicial de deposito:</label>
-            <input type="text" oninput="formatarovalor(this)" placeholder="digite o valor do deposito" 
-            id="deposito" name="deposito" step="0.01" min="0.0"  ><br>
+            <input type="text" class="deposito form-control" placeholder="digite o valor do deposito" 
+            id="deposito" name="deposito"  min="0.00" style="display:imline-block"  /><br>
+
+            <label for="dinheiro">R$</label><input type="text" id="dinheiro" name="dinheiro" class="dinheiro form-control" style="display:inline-block" />
         
             <!--<h4>
                 <label>Qual tipo de conta:</label>
@@ -175,5 +197,6 @@ function formatarovalor(input) {
     <h3>
         <b class="blink">texto teste para futuro texto sem ser teste</b>
     </h3>
+    <!--Number.prototype.toLocaleString()-->
 </body>
 </html>
